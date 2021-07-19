@@ -1,0 +1,56 @@
+version: '2.3'
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - '3306'
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    healthcheck:
+      test: mysqladmin ping -uroot -p"${DB_ROOT_PASSWORD}"
+      interval: 30s
+      timeout: 5s
+      retries: 15
+
+  starter:
+    build: .
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      DB_ENGINE: ${DB_ENGINE}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DBMI_APP_DOMAIN: ${DBMI_APP_DOMAIN}
+      DBMI_PORT: ${DBMI_PORT}
+      DBMI_LB: ${DBMI_LB}
+      DBMI_SSL: ${DBMI_SSL}
+      DBMI_CREATE_SSL: ${DBMI_CREATE_SSL}
+      DBMI_HEALTHCHECK: ${DBMI_HEALTHCHECK}
+      DBMI_APP_STATIC_ROOT: ${DBMI_APP_STATIC_ROOT}
+      GUNICORN_CMD_ARGS: "--log-level info --reload --access-logfile /var/log/gunicorn.log"
+    volumes:
+      - ./starter:/app
+    ports:
+      - "8020:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  pma:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8021:80"
+    environment:
+      PMA_HOST: "db"
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    depends_on:
+      db:
+        condition: service_healthy
