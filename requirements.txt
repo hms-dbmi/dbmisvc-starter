@@ -1,5 +1,6 @@
 asgiref==3.4.1
 Django==3.2.5
+django-dbmi-client==0.4.5
 django-health-check==3.16.4
 djangorestframework==3.12.4
 mysqlclient==2.0.3
