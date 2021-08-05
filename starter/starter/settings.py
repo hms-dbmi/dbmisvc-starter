@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-import os
 from pathlib import Path
+from dbmi_client import environment
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = environment.get_str('SECRET_KEY', required=True)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = environment.get_bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = os.environ['ALLOWED_HOSTS'].split(",")
+ALLOWED_HOSTS = environment.get_list('ALLOWED_HOSTS', required=True)
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'health_check',
+    'health_check.db',
 ]
 
 MIDDLEWARE = [
@@ -76,12 +78,12 @@ WSGI_APPLICATION = 'starter.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ["DB_ENGINE"],
-        "NAME": os.environ["DB_DATABASE"],
-        "USER": os.environ["DB_USER"],
-        "PASSWORD": os.environ["DB_PASSWORD"],
-        "HOST": os.environ["DB_HOST"],
-        "PORT": os.environ["DB_PORT"],
+        "ENGINE": environment.get_str("DB_ENGINE", required=True),
+        "NAME": environment.get_str("DB_DATABASE", required=True),
+        "USER": environment.get_str("DB_USER", required=True),
+        "PASSWORD": environment.get_str("DB_PASSWORD", required=True),
+        "HOST": environment.get_str("DB_HOST", required=True),
+        "PORT": environment.get_str("DB_PORT", required=True),
     }
 }
 
@@ -122,8 +124,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = os.environ.get('DBMI_APP_STATIC_URL_PATH') + '/'
-STATIC_ROOT = os.environ.get('DBMI_APP_STATIC_ROOT')
+STATIC_URL = environment.get_str('DBMI_APP_STATIC_URL_PATH', default="/static") + "/"
+STATIC_ROOT = environment.get_str('DBMI_APP_STATIC_ROOT', default="/var/static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

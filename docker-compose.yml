@@ -34,11 +34,20 @@ services:
       DBMI_CREATE_SSL: ${DBMI_CREATE_SSL}
       DBMI_HEALTHCHECK: ${DBMI_HEALTHCHECK}
       DBMI_APP_STATIC_ROOT: ${DBMI_APP_STATIC_ROOT}
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
       GUNICORN_CMD_ARGS: "--log-level info --reload --access-logfile /var/log/gunicorn.log"
     volumes:
       - ./starter:/app
+      - ./docker-entrypoint-init.d/45-django-admin.sh:/docker-entrypoint-init.d/45-django-admin.sh
     ports:
       - "8020:80"
+    healthcheck:
+      test: curl -s http://localhost/healthcheck || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 15
     depends_on:
       db:
         condition: service_healthy
