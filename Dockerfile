@@ -1,4 +1,4 @@
-FROM python:3.6-alpine3.11 AS builder
+FROM python:3.9-alpine3.14 AS builder
 
 # Install dependencies
 RUN apk add --update \
@@ -16,7 +16,7 @@ ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
 # Install Python packages
 RUN pip install -r /requirements.txt
 
-FROM hmsdbmitc/dbmisvc:alpine-python3.6-0.1.0
+FROM hmsdbmitc/dbmisvc:alpine3.14-python3.9-0.1.1
 
 RUN apk add --no-cache --update \
     mariadb-connector-c \
