@@ -7,7 +7,7 @@ service utilizing the various HMS DBMI managed infrastructure and tools.
 
 1. Setup development environment by checking out repository: `git clone https://github.com/hms-dbmi/dbmisvc-starter && cd dbmisvc-starter`
 
-2. Installing development requirements: `pip install -r requirements-dev.txt`
+2. Installing development requirements: `pip install -r dev-requirements.txt`
 
 3. Install pre-commit hooks: `pre-commit install`
 

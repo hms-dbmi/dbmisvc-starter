@@ -1,0 +1,5 @@
+Django<4.0
+django-dbmi-client<0.5.0
+django-health-check<4.0
+djangorestframework<4.0
+mysqlclient<3.0
