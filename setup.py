@@ -39,7 +39,7 @@ def get_version(package):
 DESC = "A starter application for a DBMI service"
 setup(
     name="dbmisvc-starter",
-    version=get_version(),
+    version=get_version("starter"),
     url="https://github.com/hms-dbmi/dbmisvc-starter",
     author="HMS DBMI - Techcore",
     author_email="bryan_larson@hms.harvard.edu",
