@@ -28,7 +28,11 @@ jobs:
 
     - name: Check for pip-tools upgrades
       run: |
-        pip-compile --upgrade requirements.in
+        pip-compile requirements.in \
+          --upgrade \
+          --generate-hashes \
+          --allow-unsafe \
+          --output-file requirements.txt
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
