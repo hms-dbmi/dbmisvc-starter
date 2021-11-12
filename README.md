@@ -11,6 +11,8 @@ service utilizing the various HMS DBMI managed infrastructure and tools.
 
 3. Install pre-commit hooks: `pre-commit install`
 
+4. Copy `.env.example` to `.env` and add necessary project configurations
+
 4. Build and run stack: `docker-compose up -d`
 
 ## 2. Deploying

@@ -18,25 +18,9 @@ services:
 
   starter:
     build: .
+    env_file:
+      - .env
     environment:
-      SECRET_KEY: ${SECRET_KEY}
-      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
-      DB_ENGINE: ${DB_ENGINE}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
-      DB_DATABASE: ${DB_DATABASE}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DBMI_APP_DOMAIN: ${DBMI_APP_DOMAIN}
-      DBMI_PORT: ${DBMI_PORT}
-      DBMI_LB: ${DBMI_LB}
-      DBMI_SSL: ${DBMI_SSL}
-      DBMI_CREATE_SSL: ${DBMI_CREATE_SSL}
-      DBMI_HEALTHCHECK: ${DBMI_HEALTHCHECK}
-      DBMI_APP_STATIC_ROOT: ${DBMI_APP_STATIC_ROOT}
-      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
-      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
-      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
       GUNICORN_CMD_ARGS: "--log-level info --reload --access-logfile /var/log/gunicorn.log"
     volumes:
       - ./starter:/app
