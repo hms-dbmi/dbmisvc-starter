@@ -11,123 +11,156 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from dbmi_client import environment
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+from configurations import Configuration, values
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+class Common(Configuration):
+    """This is the common site settings configuration."""
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environment.get_str('SECRET_KEY', required=True)
+    # Build paths inside the project like this: BASE_DIR / 'subdir'.
+    BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environment.get_bool('DEBUG', default=False)
+    # Application definition
+    INSTALLED_APPS = [
+        "django.contrib.admin",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.staticfiles",
+        "health_check",
+        "health_check.db",
+    ]
 
-ALLOWED_HOSTS = environment.get_list('ALLOWED_HOSTS', required=True)
+    MIDDLEWARE = [
+        "django.middleware.security.SecurityMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    ]
 
+    ROOT_URLCONF = "starter.urls"
 
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'health_check',
-    'health_check.db',
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'starter.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+    TEMPLATES = [
+        {
+            "BACKEND": "django.template.backends.django.DjangoTemplates",
+            "DIRS": [],
+            "APP_DIRS": True,
+            "OPTIONS": {
+                "context_processors": [
+                    "django.template.context_processors.debug",
+                    "django.template.context_processors.request",
+                    "django.contrib.auth.context_processors.auth",
+                    "django.contrib.messages.context_processors.messages",
+                ],
+            },
         },
-    },
-]
+    ]
 
-WSGI_APPLICATION = 'starter.wsgi.application'
+    WSGI_APPLICATION = "starter.wsgi.application"
+
+    # Password validation
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        },
+        {
+            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        },
+        {
+            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+        },
+        {
+            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        },
+    ]
+
+    # Internationalization
+    # https://docs.djangoproject.com/en/3.2/topics/i18n/
+
+    LANGUAGE_CODE = "en-us"
+
+    TIME_ZONE = "UTC"
+
+    USE_I18N = True
+
+    USE_L10N = True
+
+    USE_TZ = True
+
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+    STATIC_URL = values.Value("/static", environ_name="DBMI_APP_STATIC_URL_PATH") + "/"
+    STATIC_ROOT = values.Value("/var/static", environ_name="DBMI_APP_STATIC_ROOT")
+
+    # Default primary key field type
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+    DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+    # Set a test runner to hand test runs off to pytest
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#test-runner
+
+    TEST_RUNNER = "tests.runner.PytestTestRunner"
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+class Production(Common):
+    """This is the production site settings configuration."""
 
-DATABASES = {
-    "default": {
-        "ENGINE": environment.get_str("DB_ENGINE", required=True),
-        "NAME": environment.get_str("DB_DATABASE", required=True),
-        "USER": environment.get_str("DB_USER", required=True),
-        "PASSWORD": environment.get_str("DB_PASSWORD", required=True),
-        "HOST": environment.get_str("DB_HOST", required=True),
-        "PORT": environment.get_str("DB_PORT", required=True),
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = values.SecretValue(environ_prefix="", environ_required=True)
+
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
+
+    # Allowed Hosts
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#allowed-hosts
+    ALLOWED_HOSTS = values.ListValue(environ_prefix="", environ_required=True)
+
+    # Database
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+    DATABASES = {
+        "default": {
+            "ENGINE": values.Value(environ_prefix="DB", environ_required=True),
+            "NAME": values.Value(environ_prefix="DB", environ_required=True),
+            "USER": values.Value(environ_prefix="DB", environ_required=True),
+            "PASSWORD": values.Value(environ_prefix="DB", environ_required=True),
+            "HOST": values.Value(environ_prefix="DB", environ_required=True),
+            "PORT": values.Value(environ_prefix="DB", environ_required=True),
+        }
     }
-}
 
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+class Test(Common):
+    """This is the settings configuration to use for testing."""
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = "thisisasecretkeythatisnotusedinanyactualenvironment"
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
 
-LANGUAGE_CODE = 'en-us'
+    # Allowed Hosts
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#allowed-hosts
+    ALLOWED_HOSTS = ["*"]
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = environment.get_str('DBMI_APP_STATIC_URL_PATH', default="/static") + "/"
-STATIC_ROOT = environment.get_str('DBMI_APP_STATIC_ROOT', default="/var/static")
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    # Database
+    # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": ":memory:",
+        }
+    }
