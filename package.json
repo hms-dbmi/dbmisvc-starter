@@ -1,0 +1,15 @@
+{
+  "name": "dbmisvc-starter",
+  "version": "0.1.0",
+  "description": "A starter project for a DBMI service",
+  "bugs": {
+    "url": "https://github.com/hms-dbmi/dbmisvc-starter/issues"
+  },
+  "homepage": "https://github.com/hms-dbmi/dbmisvc-starter/#readme",
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/exec": "^6.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "semantic-release": "^18.0.0"
+  }
+}
