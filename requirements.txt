@@ -45,7 +45,7 @@ mysqlclient==2.0.3
     # via -r requirements.in
 orderedmultidict==1.0.1
     # via furl
-pycparser==2.20
+pycparser==2.21
     # via cffi
 pyjwt==1.7.1
     # via django-dbmi-client
