@@ -10,15 +10,15 @@ certifi==2021.10.8
     # via requests
 cffi==1.15.0
     # via cryptography
-charset-normalizer==2.0.7
+charset-normalizer==2.0.9
     # via requests
-cryptography==35.0.0
+cryptography==36.0.1
     # via
     #   django-dbmi-client
     #   jwcrypto
 deprecated==1.2.13
     # via jwcrypto
-django==3.2.9
+django==3.2.10
     # via
     #   -r requirements.in
     #   django-bootstrap3
@@ -29,9 +29,9 @@ django-bootstrap3==21.1
     # via django-dbmi-client
 django-dbmi-client==0.4.6
     # via -r requirements.in
-django-health-check==3.16.4
+django-health-check==3.16.5
     # via -r requirements.in
-djangorestframework==3.12.4
+djangorestframework==3.13.1
     # via
     #   -r requirements.in
     #   django-dbmi-client
@@ -41,16 +41,18 @@ idna==3.3
     # via requests
 jwcrypto==1.0
     # via django-dbmi-client
-mysqlclient==2.0.3
+mysqlclient==2.1.0
     # via -r requirements.in
 orderedmultidict==1.0.1
     # via furl
-pycparser==2.20
+pycparser==2.21
     # via cffi
 pyjwt==1.7.1
     # via django-dbmi-client
 pytz==2021.3
-    # via django
+    # via
+    #   django
+    #   djangorestframework
 raven==6.10.0
     # via django-dbmi-client
 requests==2.26.0
