@@ -12,6 +12,7 @@ repos:
         - flake8-absolute-import
         - flake8-black
         - flake8-docstrings
+        - Flake8-pyproject
   - repo: https://github.com/pre-commit/pre-commit-hooks.git
     rev: v4.0.1
     hooks:
