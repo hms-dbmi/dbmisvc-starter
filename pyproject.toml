@@ -44,6 +44,12 @@ exclude = '''
 )/
 '''
 
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E402"]
+exclude = [".git", "__pycache__", "dist"]
+max-complexity = 10
+
 [tool.tox]
 legacy_tox_ini = '''
 
