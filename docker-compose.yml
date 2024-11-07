@@ -2,11 +2,11 @@ version: '2.3'
 
 services:
   db:
-    image: mysql:5.7
+    image: mysql:8.0-bookworm
     ports:
       - '3306'
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
@@ -22,6 +22,8 @@ services:
       - .env
     environment:
       GUNICORN_CMD_ARGS: "--log-level info --reload --access-logfile /var/log/gunicorn.log"
+      DJANGO_CONFIGURATION: Development
+
     volumes:
       - ./starter:/app
       - ./docker-entrypoint-init.d/45-django-admin.sh:/docker-entrypoint-init.d/45-django-admin.sh

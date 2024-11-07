@@ -1,4 +1,4 @@
-FROM hmsdbmitc/dbmisvc:debian11-slim-python3.6-0.2.0 AS builder
+FROM hmsdbmitc/dbmisvc:debian12-slim-python3.12-0.7.0 AS builder
 
 # Install requirements
 RUN apt-get update \
@@ -9,6 +9,7 @@ RUN apt-get update \
         gcc \
         default-libmysqlclient-dev \
         libssl-dev \
+        pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Add requirements
@@ -19,7 +20,23 @@ RUN pip install -U wheel \
     && pip wheel -r /requirements.txt \
         --wheel-dir=/root/wheels
 
-FROM hmsdbmitc/dbmisvc:debian11-slim-python3.6-0.2.0
+FROM hmsdbmitc/dbmisvc:debian12-slim-python3.12-0.7.0
+
+ARG APP_NAME="dbmisvc-starter"
+ARG APP_CODENAME="dbmisvc-starter"
+ARG VERSION
+ARG COMMIT
+ARG DATE
+
+LABEL org.label-schema.schema-version=1.0 \
+    org.label-schema.vendor="HMS-DBMI" \
+    org.label-schema.version=${VERSION} \
+    org.label-schema.name=${APP_NAME} \
+    org.label-schema.build-date=${DATE} \
+    org.label-schema.description="DBMISVC Starter" \
+    org.label-schema.url="https://github.com/hms-dbmi/dbmisvc-starter" \
+    org.label-schema.vcs-url="https://github.com/hms-dbmi/dbmisvc-starter" \
+    org.label-schema.vcf-ref=${COMMIT}
 
 # Copy Python wheels from builder
 COPY --from=builder /root/wheels /root/wheels
@@ -28,6 +45,7 @@ COPY --from=builder /root/wheels /root/wheels
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         default-libmysqlclient-dev \
+        pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Add requirements files
@@ -41,6 +59,9 @@ RUN pip install --no-index \
         # For some reason the hashes of the wheels change between stages
         # and Pip errors out on the mismatches.
         -r /requirements.in
+
+# Setup entry scripts
+ADD docker-entrypoint-init.d/* /docker-entrypoint-init.d/
 
 # Copy app source
 COPY /starter /app
@@ -70,3 +91,7 @@ ENV DBMI_LB=true
 ENV DBMI_SSL=true
 ENV DBMI_CREATE_SSL=true
 ENV DBMI_HEALTHCHECK=true
+
+# Django configurations
+ENV DJANGO_CONFIGURATION=Production
+ENV DJANGO_SETTINGS_MODULE=starter.settings
