@@ -1,11 +1,11 @@
 repos:
   - repo: https://github.com/psf/black
-    rev: 21.10b0
+    rev: 24.10.0
     hooks:
     - id: black
       language_version: python3
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 4.0.1
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.1.1
     hooks:
     - id: flake8
       additional_dependencies:
@@ -21,7 +21,7 @@ repos:
     - id: check-merge-conflict
     - id: detect-aws-credentials
   - repo: https://github.com/jazzband/pip-tools
-    rev: 6.4.0
+    rev: 7.4.1
     hooks:
       - id: pip-compile
         name: pip-compile dev-requirements.in
