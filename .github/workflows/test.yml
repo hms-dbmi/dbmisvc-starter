@@ -1,0 +1,16 @@
+name: Test Image Build
+
+on:
+  pull_request:
+    branches: [ master, development ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    uses: hms-dbmi/actions/.github/workflows/test-image-build.yml@main
+    secrets:
+      DOCKER_HUB_USERNAME: ${{ secrets.BLHMSDBMI_DOCKERHUB_USERNAME }}
+      DOCKER_HUB_PASSWORD: ${{ secrets.BLHMSDBMI_DOCKERHUB_PASSWORD }}
+    with:
+      repository: ${{ github.repository }}
+      commit: ${{ github.sha }}
