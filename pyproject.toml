@@ -1,6 +1,6 @@
 [project]
 name = "dbmisvc-starter"
-version = "0.1.0"
+version = "1.0.0-rc.1"
 description = "A starter for a DBMISVC-style application"
 readme = "README.md"
 requires-python = ">=3.12"
