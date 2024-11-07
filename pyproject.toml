@@ -1,3 +1,28 @@
+[project]
+name = "dbmisvc-starter"
+version = "0.1.0"
+description = "A starter for a DBMISVC-style application"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {file = "LICENSE.txt"}
+authors = [
+  {name = "HMS DBMI Tech Dev Core" }
+]
+maintainers = [
+  {name = "HMS DBMI Tech Dev Core" }
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+[project.urls]
+"Bug Reports" = "https://github.com/hms-dbmi/dbmisvc-app-test/issues"
+"Source" = "https://github.com/hms-dbmi/dbmisvc-app-test/"
+
 [build-system]
 requires = [ "setuptools >= 35.0.2", "wheel"]
 build-backend = "setuptools.build_meta"

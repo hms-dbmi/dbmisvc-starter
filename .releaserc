@@ -1,6 +1,8 @@
 {
     "branches": [
         "master",
+        "main",
+        "+([0-9])?(.{+([0-9]),x}).x",
         {"name": "development", "channel": "pre/rc", "prerelease": "rc"},
         {"name": "beta", "prerelease": true},
         {"name": "alpha", "prerelease": true}
@@ -12,13 +14,15 @@
             "changelogFile": "CHANGELOG.md"
         }],
         ["@semantic-release/exec", {
-          "prepareCmd": "sed -ie \"s/^__version__.*/__version__ = \\x22${nextRelease.version}\\x22/g\" starter/starter/__init__.py && sed -ie \"s/\\x22version\\x22: \\x22.*\\x22/\\x22version\\x22: \\x22${nextRelease.version}\\x22/g\" package.json"
+          "prepareCmd": "sed -ie \"s/^version.*/version = \\x22${nextRelease.version}\\x22/g\" pyproject.toml"
         }],
         ["@semantic-release/git", {
-            "assets": ["starter/starter/__init__.py", "CHANGELOG.md", "package.json", "package-lock.json"]
+            "assets": ["pyproject.toml", "CHANGELOG.md"]
         }],
         ["@semantic-release/github", {
-            "assets": ["*"]
+            "successComment": false,
+            "failComment": false,
+            "failTitle": false
         }]
     ],
     "preset": "angular"
