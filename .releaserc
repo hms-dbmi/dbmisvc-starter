@@ -20,7 +20,7 @@
             "assets": ["pyproject.toml", "CHANGELOG.md"]
         }],
         ["@semantic-release/github", {
-            "successComment": false,
+            "successCommentCondition": false,
             "failComment": false,
             "failTitle": false
         }]
