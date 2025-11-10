@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/hms-dbmi/dbmisvc-starter/compare/v1.0.0...v1.0.1) (2025-11-10)
+
+
+### Bug Fixes
+
+* **requirements:** Updated Python requirements ([3692a79](https://github.com/hms-dbmi/dbmisvc-starter/commit/3692a799d24774fe473116f30094f8d4fd3b4086))
+
 ## [1.0.1-rc.1](https://github.com/hms-dbmi/dbmisvc-starter/compare/v1.0.0...v1.0.1-rc.1) (2025-11-10)
 
 
