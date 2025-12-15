@@ -4,13 +4,13 @@
 #
 #    pip-compile --allow-unsafe --generate-hashes --output-file=requirements.txt requirements.in
 #
-asgiref==3.10.0 \
-    --hash=sha256:aef8a81283a34d0ab31630c9b7dfe70c812c95eba78171367ca8745e88124734 \
-    --hash=sha256:d89f2d8cd8b56dada7d52fa7dc8075baa08fb836560710d38c292a7a3f78c04e
+asgiref==3.11.0 \
+    --hash=sha256:13acff32519542a1736223fb79a715acdebe24286d98e8b164a73085f40da2c4 \
+    --hash=sha256:1db9021efadb0d9512ce8ffaf72fcef601c7b73a8807a1bb2ef143dc6b14846d
     # via django
-certifi==2025.10.5 \
-    --hash=sha256:0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de \
-    --hash=sha256:47c09d31ccf2acf0be3f701ea53595ee7e0b8fa08801c6624be771df09ae7b43
+certifi==2025.11.12 \
+    --hash=sha256:97de8790030bbd5c2d96b7ec782fc2f7820ef8dba6db909ccf95449f2d062d4b \
+    --hash=sha256:d8ab5478f2ecd78af242878415affce761ca6bc54a22a27e026d7c25357c3316
     # via
     #   requests
     #   sentry-sdk
@@ -271,9 +271,9 @@ cryptography==46.0.3 \
     --hash=sha256:ef639cb3372f69ec44915fafcd6698b6cc78fbe0c2ea41be867f6ed612811963 \
     --hash=sha256:f260d0d41e9b4da1ed1e0f1ce571f97fe370b152ab18778e9e8f67d6af432018
     # via django-dbmi-client
-django==5.2.8 \
-    --hash=sha256:23254866a5bb9a2cfa6004e8b809ec6246eba4b58a7589bc2772f1bcc8456c7f \
-    --hash=sha256:37e687f7bd73ddf043e2b6b97cfe02fcbb11f2dbb3adccc6a2b18c6daa054d7f
+django==5.2.9 \
+    --hash=sha256:16b5ccfc5e8c27e6c0561af551d2ea32852d7352c67d452ae3e76b4f6b2ca495 \
+    --hash=sha256:3a4ea88a70370557ab1930b332fd2887a9f48654261cdffda663fef5976bb00a
     # via
     #   -r requirements.in
     #   django-bootstrap3
@@ -282,9 +282,9 @@ django==5.2.8 \
     #   django-health-check
     #   djangorestframework
     #   sentry-sdk
-django-bootstrap3==25.2 \
-    --hash=sha256:314ee145a69af5d52f77e41a67a6d93dcb30870454e34858ca74bd42f789fb06 \
-    --hash=sha256:79b886c1dbd6600650bc5bc046e532c98887c19ea1de8b7138a00fcfeb74a500
+django-bootstrap3==25.3 \
+    --hash=sha256:ad7a4eb7ac472a38c053b749ebd0a0b4288ff73c321018c19a36027904e5089a \
+    --hash=sha256:b4b04ca0bdcc23cbe471a7101f6f049c43849619ec3a9176f4e9bc002cb01257
     # via django-dbmi-client
 django-configurations==2.5.1 \
     --hash=sha256:6e5083757e2bbdf9bb7850567536b96a93515f6b17503d74928ff628db2e0e94 \
@@ -322,9 +322,9 @@ mysqlclient==2.2.7 \
     --hash=sha256:977e35244fe6ef44124e9a1c2d1554728a7b76695598e4b92b37dc2130503069 \
     --hash=sha256:a22d99d26baf4af68ebef430e3131bb5a9b722b79a9fcfac6d9bbf8a88800687
     # via -r requirements.in
-orderedmultidict==1.0.1 \
-    --hash=sha256:04070bbb5e87291cc9bfa51df413677faf2141c73c61d2a5f7b26bea3cd882ad \
-    --hash=sha256:43c839a17ee3cdd62234c47deca1a8508a3f2ca1d0678a3bf791c87cf84adbf3
+orderedmultidict==1.0.2 \
+    --hash=sha256:16a7ae8432e02cc987d2d6d5af2df5938258f87c870675c73ee77a0920e6f4a6 \
+    --hash=sha256:ab5044c1dca4226ae4c28524cfc5cc4c939f0b49e978efa46a6ad6468049f79b
     # via furl
 pycparser==2.23 \
     --hash=sha256:78816d4f24add8f10a06d6f05b4d424ad9e96cfebf68a4ddc99c65c0720d00c2 \
@@ -342,9 +342,9 @@ requests==2.32.5 \
     --hash=sha256:2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6 \
     --hash=sha256:dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf
     # via django-dbmi-client
-sentry-sdk[django]==2.43.0 \
-    --hash=sha256:4aacafcf1756ef066d359ae35030881917160ba7f6fc3ae11e0e58b09edc2d5d \
-    --hash=sha256:52ed6e251c5d2c084224d73efee56b007ef5c2d408a4a071270e82131d336e20
+sentry-sdk[django]==2.47.0 \
+    --hash=sha256:8218891d5e41b4ea8d61d2aed62ed10c80e39d9f2959d6f939efbf056857e050 \
+    --hash=sha256:d72f8c61025b7d1d9e52510d03a6247b280094a327dd900d987717a4fce93412
     # via django-dbmi-client
 six==1.17.0 \
     --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
@@ -352,13 +352,13 @@ six==1.17.0 \
     # via
     #   furl
     #   orderedmultidict
-sqlparse==0.5.3 \
-    --hash=sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272 \
-    --hash=sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca
+sqlparse==0.5.4 \
+    --hash=sha256:4396a7d3cf1cd679c1be976cf3dc6e0a51d0111e87787e7a8d780e7d5a998f9e \
+    --hash=sha256:99a9f0314977b76d776a0fcb8554de91b9bb8a18560631d6bc48721d07023dcb
     # via django
-urllib3==2.5.0 \
-    --hash=sha256:3fc47733c7e419d4bc3f6b3dc2b4f890bb743906a30d56ba4a5bfa4bbff92760 \
-    --hash=sha256:e6b01673c0fa6a13e374b50871808eb3bf7046c4b125b216f6bf1cc604cff0dc
+urllib3==2.6.2 \
+    --hash=sha256:016f9c98bb7e98085cb2b4b17b87d2c702975664e4f060c6532e64d1c1a5e797 \
+    --hash=sha256:ec21cddfe7724fc7cb4ba4bea7aa8e2ef36f607a4bab81aa6ce42a13dc3f03dd
     # via
     #   requests
     #   sentry-sdk
